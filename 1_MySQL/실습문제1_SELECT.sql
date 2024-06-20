@@ -29,7 +29,7 @@ WHERE price between 2 and 4
     and actors LIKE "%BOB%";
 
 -- **5. address 테이블에서 district가 비어있지 않고 앞에 숫자 제외 주소만 10개 조회
-SELECT replace(address, substr(address, 1, instr(address, ' ')-1), ''), district
+SELECT replace(address, substr(address, 1, instr(address, ' ')-1), '')
 FROM address
 WHERE district != ""
 LIMIT 10;

@@ -231,8 +231,8 @@ SELECT
 -- 연도별 오래된 순으로 직원명, 입사년도, 입사월, 입사일 조회
 SELECT emp_name, year(hire_date), month(hire_date), day(hire_date)
 FROM employee
--- ORDER BY hire_date;
-ORDER BY 입사년도, 입사월, 입사일;
+ORDER BY hire_date;
+-- ORDER BY 입사년도, 입사월, 입사일;
 
 /*
 	포맷 함수
