@@ -11,30 +11,44 @@ WHERE first_name LIKE 'A%';
 -- rating이 PG면서 영화 제목(title)에 GO가 포함되는 영화 제목 조회
 SELECT title
 FROM film_list
-WHERE (category = 'Sci-Fi' or category = 'Family')
+-- WHERE (category = 'Sci-Fi' OR category = 'Family')
+WHERE category IN ('Sci-Fi','Family')
 	AND rating = 'PG'
     AND title LIKE '%GO%';
 
 -- 3. film_list 테이블에서 fid가 7 이하면서 4, 6은 아닌 fid, title 조회
 SELECT fid, title
 FROM film_list
-WHERE fid <= 7 and fid != 4 and fid != 6;
+WHERE fid <= 7 AND fid != 4 AND fid != 6;
+-- WHERE fid <= 7 AND fid NOT IN (4, 6); 도 가능
 
 -- 4. film_list 테이블에서 가격(price)은 2 이상 4 이하이면서 category가 Documentary거나 Animation이고 
 -- 배우들(actors) 중 BOB가 포함되어 있는 영화 제목(title)만 조회 
 SELECT title
 FROM film_list
-WHERE price between 2 and 4
-	and (category = "Documentary" OR category = "Animation")
-    and actors LIKE "%BOB%";
+WHERE price BETWEEN 2 AND 4
+	AND category IN ('Documentary', 'Animation')
+    AND actors LIKE "%BOB%";
 
 -- **5. address 테이블에서 district가 비어있지 않고 앞에 숫자 제외 주소만 10개 조회
-SELECT replace(address, substr(address, 1, instr(address, ' ')-1), '')
+SELECT replace(address, substr(address, 1, instr(address, ' ')), ''), district
 FROM address
 WHERE district != ""
 LIMIT 10;
 
-select * from customer_list;
+-- 풀이 -------
+SELECT substr(address, instr(address, ' ') +1) adress, district '' -- instr(address, ' ') +1 뜨어쓰기 위치보다 뒤부터 시작해야해서 +1
+FROM address
+WHERE district != ''
+ORDER BY 2, 1 desc
+LIMIT 10;
+
+SELECT trim(regexp_replace(address, '[0-9]+','')), district -- regexp_replace(컬럼, 정규표현식, 대체되는 글자)
+FROM address
+WHERE district != ''
+ORDER BY 2, 1 desc
+LIMIT 10;
+
 -- 6. customer_list 테이블에서 id가 6인 사람부터 10명 조회
 SELECT ID, name
 FROM customer_list
@@ -42,8 +56,14 @@ WHERE ID >= 6
 ORDER BY ID
 LIMIT 10;
 
--- **7. actor 테이블에서 J로 시작하는 이름과 글자수 조회 (공백 X, 정렬은 글자수가 많은 사람 순으로)
-SELECT concat(first_name, ' ', last_name) 이름, length(concat(first_name, last_name)) 글자수
+-- 다른 풀이 -------
+SELECT ID, name 
+FROM customer_list
+ORDER BY ID
+LIMIT 5, 10; -- 0부터 시작
+
+-- 7. actor 테이블에서 J로 시작하는 이름과 글자수 조회 (공백 X, 정렬은 글자수가 많은 사람 순으로)
+SELECT concat(first_name, ' ', last_name) 이름, char_length(concat(first_name, last_name)) 글자수
 FROM actor
 WHERE first_name LIKE "J%"
 ORDER BY 글자수 DESC;
@@ -53,12 +73,13 @@ SELECT distinct(substr(description, 1, instr(description, 'of') -1)) "of 이전 
 FROM film
 LIMIT 10;
 
+-- 풀이 ---
+SELECT distinct substr(description, 1, instr(description, 'of') -2) "of 이전 문장"
+FROM film
+ORDER BY 1 DESC
+LIMIT 10;
+
 -- 9. film 테이블에서 replacement_cost 최소 비용과 최대 비용 조회
 SELECT min(replacement_cost) "최소 비용", max(replacement_cost) "최대 비용"
 FROM film;
-
-
-
-
-
 
