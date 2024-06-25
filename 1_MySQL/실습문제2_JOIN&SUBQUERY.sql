@@ -24,12 +24,13 @@ FROM customer
  JOIN country USING (country_id)
 WHERE first_name = 'TRACY';
 
--- 2. 배우 JULIA MCQUEEN이 찍은 영화 제목 조회 (title 기준 정렬 10개까지)
+-- 2. 배우 JULIA MCQUEEN이 찍은 영화 제목 조회 (title 기준 정렬 10개까지) //foreign key가 많은 테이블(film_actor)을 FROM에 놓는 것 추천
 SELECT first_name, last_name, title
 FROM film
     JOIN film_actor USING (film_id)
     JOIN actor USING (actor_id)
 WHERE (first_name, last_name) = ('JULIA', 'MCQUEEN')
+ORDER BY title -- title 기준 정렬
 LIMIT 10;
 
 -- 3. 영화 NOON PAPI에 나오는 배우들의 이름 조회
@@ -39,6 +40,17 @@ FROM actor
     JOIN film USING (film_id)
 WHERE title = 'NOON PAPI';
 
+-- > 서브쿼리로도 가능하지만 추천은 안함 
+-- 사실상 조회해야 하는 건 actor 테이블만 필요
+SELECT first_name, last_name
+FROM actor 
+-- 답 연산자가 여러개여서 IN 사용!!
+WHERE actor_id IN (SELECT actor_id
+				   FROM film_actor
+                   WHERE film_id = (SELECT film_id
+									FROM film
+                                    WHERE title = 'NOON PAPI'));
+
 -- 4. 각 카테고리별 이메일이 JOYCE.EDWARDS@sakilacustomer.org인 고객이 빌린 DVD 대여 수 조회
 SELECT * FROM category; -- 영화 카테고리 정보 : category_id
 SELECT * FROM rental; -- DVD 대여 정보 : customer_id, inventory_id
@@ -46,8 +58,8 @@ SELECT * FROM inventory; -- DVD 대여점에서 관리하는 정보 : inventory_
 SELECT * FROM film_category; -- film과 category 연결 : film_id, category_id
 SELECT * FROM customer; -- DVD 대여 고객 정보 : customer_id, address_id, first_name, last_name
 
-SELECT name, count(name) count
-FROM category
+SELECT name category, count(name) count
+FROM category -- rental로 연결 
 	JOIN film_category USING (category_id)
     JOIN inventory USING (film_id)
     JOIN rental USING (inventory_id)
@@ -55,8 +67,16 @@ FROM category
 WHERE email = 'JOYCE.EDWARDS@sakilacustomer.org'
 GROUP BY name;
 
-
-    
+-- 서브쿼리로 변경
+SELECT name category, count(name) count
+FROM rental
+	JOIN inventory USING (inventory_id)
+    JOIN film_category USING (film_id)
+    JOIN category USING (category_id)
+WHERE customer_id = (SELECT customer_id
+					 FROM customer
+                     WHERE email = 'JOYCE.EDWARDS@sakilacustomer.org')
+GROUP BY name;
 
 -- 5. 이메일이 JOYCE.EDWARDS@sakilacustomer.org인 고객이 가장 최근에 빌린 영화 제목과 영화 내용을 조회 
 SELECT title, description
@@ -68,6 +88,15 @@ WHERE email = 'JOYCE.EDWARDS@sakilacustomer.org'
 ORDER BY rental_date DESC
 LIMIT 1;
 
+-- 서브쿼리
+SELECT title, description
+FROM rental
+ JOIN inventory USING (inventory_id)
+ JOIN film USING (film_id)
+WHERE rental_date = (SELECT max(rental_date)
+					 FROM rental
+                        JOIN customer USING (customer_id)
+                     WHERE email = 'JOYCE.EDWARDS@sakilacustomer.org');
 
 
 

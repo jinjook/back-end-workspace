@@ -55,8 +55,18 @@ WHERE emp_name = '노옹철';
 DELETE FROM emp_salary 
 WHERE emp_id IN (213, 218); 
 
+-- emp_id 가 200인 사원 삭제
+DELETE FROM emp_salary
+WHERE emp_id = 200;
+
+SELECT * FROM emp_salary;
 SELECT * FROM dept_copy;
 
+-- DDL 구문을 실행하는 순간 임시 저장된 변경사항들을 무조건 반영함
+-- emp_id가 200인 사원 삭제 후 create table test 실행한 뒤 rollback하면 사원 삭제는 돌아오지 않음 
+CREATE TABLE test(
+	tid INT	
+);
 
 
 

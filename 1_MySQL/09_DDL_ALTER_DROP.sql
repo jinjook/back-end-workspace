@@ -80,7 +80,7 @@ ALTER TABLE dept_copy RENAME COLUMN lname TO location_name;
 	2. 제약조건 추가 / 삭제 
     2-1 제약조건 추가 (ADD) -- 제약조건명은 자동으로 지어지기도 하기 때문에 필요없으면 생략 가능
     - ADD [CONSTRAINT 제약조건명] PRIMARY KEY(컬럼명);
-    - ADD [CONSTRAINT 제약조건명] FOREIGN KEY(컬럼명) REFERENCES 참고테이블명(컬럼명);
+    - ADD [CONSTRAINT 제약조건명] FOREIGN KEY(컬럼명) REFERENCES 참고테이블명(컬럼명); // foreign키는 alter-add 사용 추천
     - ADD [CONSTRAINT 제약조건명] UNIQUE (컬럼명);
     - ADD [CONSTRAINT 제약조건명] CHECK (컬럼에 대한 조건);
     - NOT NULL : MODIFY 컬럼명 [CONSTRAINT 제약조건명] NOT NULL;
