@@ -35,9 +35,11 @@ CREATE TABLE book(
     bk_price INT,
     bk_pub_no INT,
     foreign key (bk_pub_no) REFERENCES publisher(pub_no) ON DELETE CASCADE
+    -- CONSTRAINT pub_no_fk FOREIGN KEY (bk_pub_no) REFERENCES publisher(pub_no) ON DELTED CASCADE // 별칭 넣는것 추천
 );
 
 SELECT * FROM book;
+DESC book;
 
 INSERT INTO book(bk_title, bk_author, bk_price, bk_pub_no) 
 	VALUES ('개발자를 위한 생각의 정리, 문서 작성법', '카이마이 미즈히로', 20000, 1);
@@ -62,10 +64,11 @@ INSERT INTO book(bk_title, bk_author, bk_price, bk_pub_no)
 --           enroll_date(가입일)  -- 기본값 현재날짜
 CREATE TABLE member(
 	member_no INT PRIMARY KEY AUTO_INCREMENT,
-    member_id VARCHAR(20) UNIQUE,
+    member_id VARCHAR(20) UNIQUE, -- NOT NULL도 추가
     member_pwd VARCHAR(20) NOT NULL,
     member_name VARCHAR(20) NOT NULL,
     gender VARCHAR(3),
+    -- M / F 라서 CAHR(1) 가능
     address VARCHAR(35),
     phone VARCHAR(13),
     status VARCHAR(3) DEFAULT 'N',
@@ -101,6 +104,9 @@ CREATE TABLE rent(
 ALTER TABLE rent ADD FOREIGN KEY(rent_mem_no) REFERENCES member(member_no) ON DELETE SET NULL;
 ALTER TABLE rent ADD FOREIGN KEY(rent_book_no) REFERENCES book(bk_no) ON DELETE SET NULL;
 
+-- ALTER TABLE rent ADD CONSTRAINT member_no_fk FROEIGN KEY(rent_mem_no) REFERENCES member(member_no) ON DELETE SET NULL;
+-- ALTER TABLE rent ADD CONSTRAINT book_no_fk FROEIGN KEY(rent_book_no) REFERENCES book(bk_no) ON DELETE SET NULL;
+
 DESC rent;
 
 INSERT INTO rent(rent_mem_no, rent_book_no) VALUES (1,2);
@@ -113,11 +119,12 @@ SELECT * FROM rent;
 
 -- 5. 2번 도서를 대여한 회원의 이름, 아이디, 대여일, 반납 예정일(대여일 + 7일)을 조회하시오.
 
-SELECT member_name 회원이름, member_id 아이디, rent_date 대여일, adddate(rent_date, +7) '반납 예정일'
+SELECT member_name 회원이름, member_id 아이디, rent_date 대여일, adddate(rent_date, +7) '반납 예정일' -- adddate(rent_date, INTERVAL 7 DAY)
 FROM rent
 	JOIN member ON (rent_mem_no = member_no)
     JOIN book ON (rent_book_no = bk_no)
 WHERE bk_no = 2;
+-- 굳이 book 조인할것 없이 WHERE rent_book_no = 2로 조건 걸면 됨..
 
 -- 6. 회원번호가 1번인 회원이 대여한 도서들의 도서명, 출판사명, 대여일, 반납예정일을 조회하시오.
 
@@ -126,4 +133,4 @@ FROM rent
 	JOIN member ON (rent_mem_no = member_no)
     JOIN book ON (rent_book_no = bk_no)
     JOIN publisher ON (pub_no = bk_pub_no)
-WHERE member_no = 1;
+WHERE member_no = 1; -- rent_mem_no = 1
