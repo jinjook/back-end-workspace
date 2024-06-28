@@ -4,6 +4,10 @@ import java.util.Scanner;
 
 public class VariablePractice {
 	
+	Scanner sc = new Scanner(System.in);
+	// 클래스 안에 넣어두면, 모든 method에서 사용 가능해짐 (전역변수- 전체영역변수?)
+	
+	
 	public static void main(String[] args) {
 
 		VariablePractice method = new VariablePractice();
@@ -12,7 +16,7 @@ public class VariablePractice {
 //		method.method3();
 //		method.method4();
 //		method.method5();
-		method.method6();
+//		method.method6();
 		method.method7();
 	}
 	
@@ -27,8 +31,12 @@ public class VariablePractice {
 		
 		int adult = 10000;
 		int student = 7000;
+		int adultCount = 2;
+		int studentCount = 3;
 		
-		System.out.println(adult *2 + student *3 +"원");
+		int total = adult * adultCount + student * studentCount;
+		
+		System.out.println("지불해야 할 금액 : "+ total +"원");
 		System.out.println("-------------------------");
 		
 	}
@@ -81,6 +89,22 @@ public class VariablePractice {
 		
 		System.out.println("합 : "+ (num1+num2)+", 차 : "+ (num1-num2) + ", 곱 : "+ num1*num2 +", 나누기 : "+ num1/num2 );
 		
+		
+		System.out.println("--풀이--");
+		// 풀이
+		
+		System.out.print("첫 번째 정수 : ");
+		int num3 = sc.nextInt();
+		
+		System.out.print("두 번째 정수 : ");
+		int num4 = sc.nextInt();
+		
+		System.out.println("더하기 : " + (num3+num4));
+		System.out.println("빼기 : " + (num3-num4));
+		System.out.println("곱하기 : " + num3 * num4);
+		System.out.println("나누기 몫 : " + num3/num4);
+		
+		
 		System.out.println("-------------------------");
 
 	}
@@ -97,7 +121,7 @@ public class VariablePractice {
 	 * */
 	public void method4() {
 		
-		Scanner sc = new Scanner(System.in);
+//		Scanner sc = new Scanner(System.in); 클래스 안에 넣어두면 모든 method에서 사용 가능
 		
 		System.out.println("가로 : ");
 		double width = Double.parseDouble(sc.nextLine());
@@ -107,8 +131,24 @@ public class VariablePractice {
 		
 		System.out.println("면적 : "+ width*height + ", 둘레 : "+ (width+height)*2);
 		
+		System.out.println("--풀이--");
+		// 풀이
+		
+		System.out.print("가로 : ");
+		float num1 = sc.nextFloat();
+		System.out.print("세로 : ");
+		float num2 = sc.nextFloat();
+		
+		double area = num1 * num2;
+		double size = (num1+num2) * 2;
+		
+		System.out.printf("면적 : %.2f\n",area);
+		System.out.printf("둘레 : %.1f\n",size);
+		
 		System.out.println("-------------------------");
 
+		
+		
 	}
 
 	/*
@@ -121,7 +161,7 @@ public class VariablePractice {
 	 * */
 	public void method5() {
 		
-		Scanner sc = new Scanner(System.in);
+//		Scanner sc = new Scanner(System.in); 클래스 안에 넣어두면 모든 method에서 사용 가능
 		
 		System.out.println("문자열을 입력하세요 : ");
 		String input = sc.nextLine();
@@ -132,6 +172,21 @@ public class VariablePractice {
 		
 		System.out.printf("첫번째 문자 : %c, 두번째 문자 : %c, 마지막 문자 : %c",word1, word2, word3);
 		System.out.println();
+		
+		
+		System.out.println("--풀이--");
+		// 풀이
+		
+		
+		System.out.print("문자열을 입력하세요 : ");
+		String word = sc.nextLine();
+		
+		System.out.println("첫번째 문자 : " + word.charAt(0));
+		System.out.println("두번째 문자 : " + word.charAt(1));
+		System.out.println("마지막 문자 : " + word.charAt(word.length()-1));
+		
+		
+		
 		System.out.println("-------------------------");
 	}
 
@@ -144,8 +199,8 @@ public class VariablePractice {
 	 * */
 	public void method6() {
 		
-		Scanner sc = new Scanner(System.in);
-		
+//		Scanner sc = new Scanner(System.in); 클래스 안에 넣어두면 모든 method에서 사용 가능
+		 
 		System.out.println("문자 : ");
 		char code = sc.nextLine().charAt(0);
 		
@@ -155,6 +210,19 @@ public class VariablePractice {
 		
 		
 		System.out.println(code+" unicode : "+code1+", "+code3+" unicode : "+code2);
+		
+		System.out.println("--풀이--");
+		// 풀이
+		
+		System.out.println("문자 : ");
+		char ch = sc.nextLine().charAt(0);
+		
+		int num = ch;
+		char ch2 = (char) (num + 1);
+		
+		System.out.println(ch + " unicode : "+num);
+		System.out.println(ch2 + " unicode : "+ (int)ch2); // 여기서 형변환도 가능
+		
 		System.out.println("-------------------------");
 
 	}
@@ -170,7 +238,7 @@ public class VariablePractice {
 	 * */
 	public void method7() {
 		
-		Scanner sc = new Scanner(System.in);
+//		Scanner sc = new Scanner(System.in); 클래스 안에 넣어두면 모든 method에서 사용 가능
 		
 		System.out.println("국어 : ");
 		double kr = Double.parseDouble(sc.nextLine());
@@ -185,8 +253,26 @@ public class VariablePractice {
 		double sum = kr+en+math;
 		double avg = (kr+en+math)/3;
 		
-		System.out.printf("총점 : %.0f, 평균 : %.2f", sum, avg);
+		System.out.printf("총점 : %.0f, 평균 : %.2f\n", sum, avg);
 		
+		
+		System.out.println("--풀이--");
+		// 풀이
+		
+		
+		System.out.println("국어 : ");
+		int kScore = sc.nextInt();
+		
+		System.out.println("영어 : ");
+		int eScore = sc.nextInt();
+		
+		System.out.println("수학 : ");
+		int mScore = sc.nextInt();
+		
+		int sum1 = kScore + eScore + mScore;
+		
+		System.out.println("총점 : " + sum1);
+		System.out.printf("평균 : %.2f",((double)sum1 / 3)); // sum1이 실수여야 함 -> 형 변환
 
 	}
 
