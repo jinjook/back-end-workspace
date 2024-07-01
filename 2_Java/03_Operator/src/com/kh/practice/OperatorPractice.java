@@ -12,9 +12,9 @@ public class OperatorPractice {
 //		op.method2();
 //		op.method3();
 //		op.method4();
-		op.method5();
+//		op.method5();
 //		op.method6();
-//		op.method7();
+		op.method7();
 
 	}
 
@@ -42,7 +42,7 @@ public class OperatorPractice {
 		int num = sc.nextInt();
 		
 		int result = (num/100) * 100;
-		
+		// 또는 int result  = (num - num % 100);
 		System.out.println(result);
 
 	}
@@ -59,7 +59,10 @@ public class OperatorPractice {
 		System.out.print("숫자3 : ");
 		int num3 = sc.nextInt();
 		
+		// boolean result = (num1 == num2) && (num2 == num3);
+		
 		System.out.println(num1 == num2 && num2 == num3);
+		// System.out.println(result);
 
 	}
 
@@ -79,10 +82,11 @@ public class OperatorPractice {
 		System.out.print("주민번호 (-포함) : ");
 		char no = sc.nextLine().charAt(7);
 		
-		String result = no == '1' || no == '3' ? "남자" : "여자";
+		String result = no == '1' || no == '3' ? "남자" : "여자"; // 여자도 거르려면 if - else 써야함
 		
 		System.out.println(no);
 		System.out.println(result);		
+		
 
 	}
 
@@ -96,6 +100,11 @@ public class OperatorPractice {
 		System.out.println(age <= 13 ? "어린이" : "청소년"); 
 	} else {
 		System.out.println("성인");}
+
+		
+		// string str = age <= 13? "어린이" : age >13 && age<=19 ? "청소년" : "성인";
+		
+		
 	}
 
 	//사과의 개수와 바구니의 크기(바구니 1개의 들어가는 사과의 개수)를 입력받아
@@ -111,6 +120,10 @@ public class OperatorPractice {
 		int result = apple%basket == 0
 				 ? apple/basket 
 				 : apple/basket + 1;
+		
+		// (apple / basket)은 동일한 값이라 앞으로 빼기 가능
+		// System.out.println(apple / basket + ( apple % basket == 0 ? 0 : 1));
+		
 		
 		System.out.println(result);
 	}
