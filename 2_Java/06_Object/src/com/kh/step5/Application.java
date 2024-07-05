@@ -3,7 +3,7 @@ package com.kh.step5;
 import com.kh.step5.model.Book;
 
 public class Application {
-
+// public/private : 접근 제한 정도
 	public static void main(String[] args) {
 		Book book = new Book();
 		
