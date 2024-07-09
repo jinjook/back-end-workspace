@@ -8,7 +8,7 @@ public class Member extends Book{
 	
 	private String name;
 	private int age;
-	private int ccoupon;
+	public int ccoupon;
 	
 	
 	public Member() {
