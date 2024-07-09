@@ -10,16 +10,13 @@ public class Application {
 
 	Scanner sc = new Scanner(System.in);
 	Member m = new Member();
+	Book b = new Book();
 	BookController bc = new BookController();
 	int ccoupon = 0;
 	
 	public static void main(String[] args) {
 		
-		
 		Application app = new Application();
-		BookController bc = new BookController();
-		
-		
 		app.mainMenu();		
 		
 	}
@@ -45,10 +42,14 @@ public class Application {
 			
 			switch(select) {
 			case 1 : 
-				System.out.println(bc.info());
+				System.out.println(bc.myPage());
 				break;
 			case 2 :
-				selectBook();
+				if(bc.count < 2) {
+					selectBook();
+				} else {
+					System.out.println("더 이상 대여할 수 없습니다.");
+				}
 				break;
 			case 3 :
 				check = false;
@@ -58,6 +59,7 @@ public class Application {
 				return;
 			}
 		}
+		
 	}
 	
 	public void selectBook() {
@@ -66,6 +68,7 @@ public class Application {
 		Book b2 = new Book("오늘은 아무래도 덮밥", false, 0);
 		Book b3 = new Book("원피스 108", false, 15);
 		Book b4 = new Book("귀멸의 칼날 23", false, 19);
+		
 		
 		System.out.println("1번 도서 : "+ b1);
 		System.out.println("2번 도서 : "+ b2);
@@ -84,12 +87,20 @@ public class Application {
 			System.out.println("성공적으로 대여되었습니다.");
 			break;
 		case 3 :
+			if (m.getAge() < b3.getAccessAge()) {
+				System.out.println("나이 제한으로 대여 불가능입니다.");
+				selectBook();
+			} else {
 			bc.selectBook(b3);
-			System.out.println("성공적으로 대여되었습니다.");
+			System.out.println("성공적으로 대여되었습니다.");}
 			break;
 		case 4 :
+			if (m.getAge() < b4.getAccessAge()) {
+				System.out.println("나이 제한으로 대여 불가능입니다.");
+				selectBook();
+			} else {
 			bc.selectBook(b4);
-			System.out.println("성공적으로 대여되었습니다.");
+			System.out.println("성공적으로 대여되었습니다.");}
 			break;
 		default : 
 			System.out.println("잘못 입력했습니다.");
@@ -97,6 +108,5 @@ public class Application {
 		}
 	
 	}
-	
 	
 	}
