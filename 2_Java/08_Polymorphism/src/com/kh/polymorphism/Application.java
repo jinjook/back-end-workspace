@@ -56,9 +56,6 @@ public class Application {
 		System.out.println(ec.getTotalSalary(empArr));
 		
 		
-		
-		
-		
 	}
 
 	
