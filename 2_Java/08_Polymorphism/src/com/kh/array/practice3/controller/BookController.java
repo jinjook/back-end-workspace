@@ -15,6 +15,7 @@ public class BookController {
 		m.setName(name);
 		m.setAge(age);
 	}
+	
 		
 	public void selectBook(Book b) {
 		bookList[count++] = new Book (b.getTitle(), b.isCoupon(), b.getAccessAge());

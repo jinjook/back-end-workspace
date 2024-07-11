@@ -4,7 +4,7 @@ public class Book {
 
 	private String title;
 	private boolean coupon;
-	private int accessAge;
+	public int accessAge;
 	
 	
 	public Book() {
