@@ -59,7 +59,7 @@ public class MusicController {
 	public Music updateMusic(String search, Music update) {
 		for(Music m : list) {
 			if(m.getSong().equals(search)) {
-				return list.set(list.indexOf(m), update);
+				return list.set(list.indexOf(m), update); // Returns:the element previously at the specified position
 			}
 		}
 		return null;
