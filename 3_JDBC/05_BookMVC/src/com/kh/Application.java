@@ -5,8 +5,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import com.kh.controller.RentController;
-import com.kh.model.Book;
 import com.kh.model.Member;
+import com.kh.model.Rent;
+import com.kh.model.vo.Book;
 
 /* Schema : sample
  * Table : member, book, publisher, rent
@@ -17,7 +18,7 @@ public class Application {
 
 	private Scanner sc = new Scanner(System.in);
 	private RentController rc = new RentController();
-	private Member member =  new Member();
+	Member member =  new Member();
 
 	public static void main(String[] args) {
 
@@ -140,16 +141,14 @@ public class Application {
 		String pw = sc.nextLine();
 		
 		member = rc.login(id, pw);
-		String name = member.getName();
-		
-		if(name != null) {
-			System.out.println(name + "님, 환영합니다!");
-			memberMenu();
-		}		
-		// 로그인에 성공하면 "~~님, 환영합니다!" 출력 후
-		else {
-			System.out.println("틀린 아이디 또는 비밀번호입니다. 다시 입력해주세요.");
+		if(member != null) {
+			String name = member.getName();
+			if(name != null) {	
+				System.out.println(name + "님, 환영합니다!");
+				memberMenu();
+			}
 		}
+		else System.out.println("로그인 실패");
 	}
 
 	public void memberMenu() throws SQLException {
@@ -184,36 +183,62 @@ public class Application {
 
 	// 1. 책 대여
 	public void rentBook() throws SQLException {
+		
+		
+		// 기존 정보 삭제 후 진행
 		// printBookAll 메서드 호출하여 전체 책 조회 출력 후
 		printBookAll();
 		// 대여할 책 번호 선택을 사용자한테 입력 받아
 		System.out.print("대여할 책 번호 선택 : ");
 		int bkNo = Integer.parseInt(sc.nextLine());
+		
 		// 대여에 성공하면 "성공적으로 책을 대여했습니다." 출력
-		if(rc.rentBook(member, bkNo))
+		if(rc.rentBook(member, bkNo)){
 			System.out.println("성공적으로 책을 대여했습니다.");
-		// 대여에 성공하면 "성공적으로 책을 대여했습니다." 출력
-		else System.out.println("성공적으로 책을 대여했습니다.");
+		} else {
+			System.out.println("대여가 불가합니다.");
+		}
+		
 	}
 
 	// 2. 내가 대여한 책 조회
-	public void printRentBook() {
+	public void printRentBook() throws SQLException {
 		// 내가 대여한 책들을 반복문을 이용하여 조회
 		// 대여 번호, 책 제목, 책 저자, 대여 날짜, 반납 기한 조회
+		ArrayList<Rent> list = rc.printRentBook(member);
+		
+		if(list.size() == 0) System.out.println("대여 내역이 없습니다.");
+		else for(Rent r : list) System.out.println(r);
+		
 	}
 
 	// 3. 대여 취소
-	public void deleteRent() {
+	public void deleteRent() throws SQLException {
 		// printRentBook 매서드 호출하여 내가 대여한 책 조회 출력 후
+		printRentBook();
 		// 취소할 대여 번호 선택을 사용자한테 입력 받아
+		System.out.print("취소할 대여 번호 선택 : ");
+		int num = Integer.parseInt(sc.nextLine());
+		
 		// 취소에 성공하면 "성공적으로 대여를 취소했습니다." 출력
+		if(rc.deleteRent(num)) System.out.println("성공적으로 대여를 취소했습니다.");
 		// 실패하면 "대여를 취소하는데 실패했습니다." 출력
+		else System.out.println("대여를 취소하는데 실패했습니다.");
 	}
 
 	// 4. 회원탈퇴
-	public void deleteMember() {
+	public void deleteMember() throws SQLException {
+		
+		ArrayList<Rent> list = rc.printRentBook(member);
+		
 		// 회원탈퇴에 성공하면 "회원탈퇴 하였습니다 ㅠㅠ" 출력
+		if(rc.deleteMember(member)) 
+			System.out.println("회원탈퇴 하였습니다 ㅠㅠ");
+		else {
 		// 실패하면 "회원탈퇴하는데 실패했습니다." 출력
+		System.out.println("회원탈퇴하는데 실패했습니다.");
+		memberMenu();
+		}
 	}
 
 }

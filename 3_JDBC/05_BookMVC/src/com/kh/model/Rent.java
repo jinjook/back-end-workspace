@@ -7,11 +7,12 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Member {
-
-	private int memNo;
-	private String id;
-	private String pw;
-	private String name;
+public class Rent {
+	
+	private int rentNo;
+	private String bkTitle;
+	private String bkAuthor;
+	private String rentDate;
+	private String enrollDate;
 	
 }
