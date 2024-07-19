@@ -58,10 +58,14 @@ public class RentController {
 	
 	
 	public boolean bkCheck(String title, String author) throws SQLException {
-
-		if(dao.bkCheck(title, author)) {
-			
-		}
+		Connection conn = connect();
+		String query = "SELECT bk_title, bk_author FROM book WHERE bk_title=? AND bk_author=?";
+		PreparedStatement ps = conn.prepareStatement(query);
+		
+		ps.setString(1, title);
+		ps.setString(2, author);
+		
+		ResultSet rs = ps.executeQuery();
 		
 		String checkTitle = null;
 		String checkAuthor = null;
