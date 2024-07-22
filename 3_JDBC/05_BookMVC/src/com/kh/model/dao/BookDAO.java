@@ -69,7 +69,7 @@ public class BookDAO {
 	}
 	
 	
-	// 2. 책 확인 여부
+	// 2-1. 책 확인 여부
 	public boolean bkCheck(String title, String author) throws SQLException {
 		Connection conn = connect();
 		String query = "SELECT bk_title, bk_author FROM book WHERE bk_title=? AND bk_author=?";
@@ -86,4 +86,40 @@ public class BookDAO {
 		return check;
 	}
 
+	// 2-2. 책 등록
+	public void registerBook(String title, String author) throws SQLException {
+		Connection conn = connect();
+		String query = "INSERT INTO book (bk_title, bk_author) VALUES(?, ?)";
+		PreparedStatement ps = conn.prepareStatement(query);
+		
+		ps.setString(1, title);
+		ps.setString(2, author);
+		
+		ps.executeUpdate();
+		close(ps, conn);
+	}
+	
+	
+	// 3. 책 삭제
+	public boolean sellBook(int bkNo) throws SQLException {
+		Connection conn = connect();
+		String query = "DELETE FROM book WHERE bk_no = ?";
+		PreparedStatement ps = conn.prepareStatement(query);
+		ps.setInt(1, bkNo);
+		
+		ps.executeUpdate();
+		close(ps, conn);
+
+		return false;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
