@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-@WebServlet("/form")
+@WebServlet("/fm")
 public class FormServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
