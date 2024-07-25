@@ -11,7 +11,7 @@ import model.vo.Member;
 import java.io.IOException;
 import java.sql.SQLException;
 
-@WebServlet("/search")
+@WebServlet("/search") // 호출
 public class SearchServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -24,16 +24,16 @@ public class SearchServlet extends HttpServlet {
 		
 		try {
 			m = dao.searchMember(id);
-			
 		} catch (SQLException e) {
 			
 		}
 		
 		if(m != null) {
+			// 한번 입력할때 한번 출력하면 됨 - request 로 바인딩
 			request.setAttribute("search", m);
-			request.getRequestDispatcher("views/search_ok.jsp").forward(request, response);
+			request.getRequestDispatcher("/views/search_ok.jsp").forward(request, response);
 		} else {
-			response.sendRedirect("views/search_fail.jsp");
+			response.sendRedirect("/views/search_fail.jsp");
 		}
 		
 	}

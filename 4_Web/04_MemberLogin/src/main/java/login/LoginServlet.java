@@ -25,16 +25,17 @@ public class LoginServlet extends HttpServlet {
 		Member m = null;
 		
 		try {
-			m = dao.loginMemeber(id, pwd);
+			m = dao.loginMember(id, pwd);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
+		// Session 에 바인딩
 		HttpSession session = request.getSession();
 		session.setAttribute("login", m);
 		
-		request.getRequestDispatcher("index.jsp").forward(request, response);
-		
+//		request.getRequestDispatcher("index.jsp").forward(request, response); session은 굳이 forward 할 필요가 없음 - 이미 client 쪽에서 갖고 있는 정보
+		response.sendRedirect("/index.jsp");
 		
 	}
 

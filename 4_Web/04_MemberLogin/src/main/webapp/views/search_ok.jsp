@@ -8,10 +8,12 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>회원 정보</h1>
+	<h1>회원 검색 결과</h1>
 	<% Member m = (Member) request.getAttribute("search"); %>
-	아이디 : <%=m.getId() %><br>
-	비밀번호 : <%=m.getPwd() %><br>
-	이름 : <%=m.getName() %>
+	<ul>
+		<li>아이디 : <%=m.getId() %></li>
+		<li>비밀번호 : <%=m.getPwd() %></li>
+		<li>이름 : <%=m.getName() %></li>
+	</ul>
 </body>
 </html>

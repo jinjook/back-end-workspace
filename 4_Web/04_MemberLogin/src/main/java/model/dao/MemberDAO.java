@@ -55,7 +55,7 @@ public class MemberDAO {
 	}
 	
 	// 로그인
-	public Member loginMemeber(String id, String pwd) throws SQLException {
+	public Member loginMember(String id, String pwd) throws SQLException {
 		Connection conn = connect();
 		String query = "SELECT * FROM member WHERE id =? AND password=? ";
 		PreparedStatement ps = conn.prepareStatement(query);
@@ -64,11 +64,10 @@ public class MemberDAO {
 		ps.setString(2, pwd);
 		
 		ResultSet rs = ps.executeQuery();
-		
 		Member m = null;
 		
 		if(rs.next()) {
-			m = new Member(rs.getString("id"), rs.getString("password"), rs.getString("name"));
+			m = new Member(id, pwd, rs.getString("name"));
 		}
 		
 		close(rs, ps, conn);
@@ -89,7 +88,7 @@ public class MemberDAO {
 		
 		Member m = null;
 		if(rs.next()) {
-			m = new Member(rs.getString("id"), rs.getString("password"), rs.getString("name"));
+			m = new Member(id, rs.getString("password"), rs.getString("name"));
 		}
 		
 		close(rs, ps, conn);
@@ -112,6 +111,7 @@ public class MemberDAO {
 			list.add(new Member(rs.getString("id"), rs.getString("password"), rs.getString("name")));
 		}
 		
+		close(rs, ps, conn);
 		return list;
 	}
 	

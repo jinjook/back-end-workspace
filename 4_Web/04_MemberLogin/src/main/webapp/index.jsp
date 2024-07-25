@@ -25,7 +25,7 @@
 					LoginServlet : 세션 데이터 바인딩 필수!
 					index.jsp로 이동
 		-->
-		<% } else {%>	 
+		<% } else { %>	 
 		<!-- 로그인 되어 있는 경우 -->
 		<li><a href="/views/search.jsp">회원검색</a></li>
 		<!-- 회원검색 : 검색할 아이디 입력받아서

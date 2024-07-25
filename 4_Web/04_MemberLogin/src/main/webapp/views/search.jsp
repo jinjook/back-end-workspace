@@ -9,8 +9,8 @@
 <body>
 	<h1>회원검색</h1>
 	<form action="/search">
-	검색할 아이디 <input type="text" name="id">
-	<input type="submit" value="검색">
+		검색할 아이디 <input type="text" name="id">
+		<input type="submit" value="검색">
 	</form>
 </body>
 </html>
