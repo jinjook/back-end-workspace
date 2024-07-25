@@ -1,0 +1,14 @@
+response.sendRedirect("el1_view.jsp") -> url 주소도 http://localhost:8080/el1_view.jsp 로 변경되고 
+request.getAttribute는 null
+session.getAttribute만 값을 출력함
+
+request.getRequestDispatcher("el1_view.jsp").forward(request, response);
+-> URL 주소는 그대로 http://localhost:8080/el1.jsp
+request / session 모두 getAttribute 값 출력됨
+
+
+# EL방식
+${requestScope.result} : request 영역의 result값
+${sessionScope.result} : session 영역의 result값
+
+${result} : 똑같은 키값일 경우, 범위가 좁은 애로 출력 -> request 출력됨
