@@ -15,7 +15,7 @@
 	</ul>
 	<form action="/update" method="post">
 		아이디 : <input type="text" name="id" value="${login.id}" readonly><br>
-		비밀번호 : <input type="password" name="password"><br>
+		비밀번호 : <input type="text" name="password" value="${login.password}"><br>
 		이름: <input type="text" name="name" value="${login.name}"> <br>
 		<input type="submit" value="수정">
 	</form>

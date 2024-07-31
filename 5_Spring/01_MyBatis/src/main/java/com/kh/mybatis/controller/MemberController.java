@@ -62,9 +62,11 @@ public class MemberController {
 	public String update(Member vo, HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		Member m = (Member) session.getAttribute("login");
-		session.setAttribute("vo", vo);
+		
 		if(vo.getName()!=null) service.update(vo);
 		else service.update(m.getId(), vo.getPassword());
+		
+		session.setAttribute("login", vo);
 		
 		return "redirect:/";
 	}
