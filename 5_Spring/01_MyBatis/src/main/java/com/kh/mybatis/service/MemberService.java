@@ -31,9 +31,4 @@ public class MemberService {
 		mapper.update(member);
 	}
 	
-	public void update(String id, String pwd) {
-		mapper.updatePwd(new Member(id, pwd, null));
-	}
-	
-	
 }

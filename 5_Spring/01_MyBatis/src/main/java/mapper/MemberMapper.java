@@ -17,5 +17,4 @@ public interface MemberMapper {
 	//1:1 매칭 - resultType: Member , id:login, parameterType: Member
 	
 	void update(Member member);
-	void updatePwd(Member member);
 }

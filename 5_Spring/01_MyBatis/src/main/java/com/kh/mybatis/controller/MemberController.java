@@ -63,9 +63,11 @@ public class MemberController {
 		HttpSession session = request.getSession();
 		Member m = (Member) session.getAttribute("login");
 		
-		if(vo.getName()!=null) service.update(vo);
-		else service.update(m.getId(), vo.getPassword());
+		if(vo.getId() == null) vo.setId(m.getId());
+		System.out.println(vo);
+		service.update(vo);
 		
+		if(vo.getName() == null) vo.setName(m.getName());
 		session.setAttribute("login", vo);
 		
 		return "redirect:/";
