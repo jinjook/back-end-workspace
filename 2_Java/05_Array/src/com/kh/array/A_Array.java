@@ -160,6 +160,8 @@ public class A_Array {
 		int[] number = {1, 2, 3, 4, 5};
 		int[] copy = number.clone();
 		
+		System.out.println(Arrays.toString(number));
+		System.out.println(Arrays.toString(copy));
 	}
 	
 	

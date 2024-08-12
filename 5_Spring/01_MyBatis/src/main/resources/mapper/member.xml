@@ -1,12 +1,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mapper.MemberMapper">
+	
 	<insert id="register" parameterType="Member"> <!-- properties 에 요약 저장 -->
 		INSERT INTO member
 		VALUES (#{id}, #{password}, #{name})
 	</insert>
+	
 	<select id="allMember" resultType="Member">
 		SELECT * FROM member
 	</select>
+	
 	<select id="login" parameterType="Member" resultType="Member">
 		SELECT * FROM member 
 		WHERE id=#{id} AND password=#{password}
@@ -17,6 +20,10 @@
 		- 동적 쿼리를 구현할 때 기본적으로 사용되는 구문
 		- 특정 조건을 만족할 경우 안의 구분을 쿼리에 포함
 		- 조건 중 하나가 없어야할때는 쉼표가 문제 -> trim prefix="SET" suffixOverrides="," 사용
+		
+		# choose
+		- JSTL의 choose 구문과 유사하여 주어진 구문 중 한가지만을 수행
+		- 하위 요소인 when, otherwise 요소와 함께 사용
 		
 		# trim
 		- 쿼리 구분의 특정 부분을 없앨 때 사용
@@ -48,4 +55,53 @@
 		<!-- </trim> -->
 		WHERE id=#{id}
 	</update>
+	
+	<!-- select에 따라서
+	 all : 아이디 또는 이름으로 검색
+	 id  : 아이디에서만 검색
+	 name: 이름에서만 검색
+	 -->
+	<select id="search" parameterType="SearchDTO" resultType="Member">
+		SELECT * FROM member
+		<where>
+		<!-- <if test="select == 'all' || select=='id'">
+			id LIKE CONCAT('%',#{keyword},'%') 
+			</if>
+			<if test="select=='all'|| select=='name'">
+			OR name LIKE CONCAT('%',#{keyword},'%')
+			</if> -->
+		<choose>
+			<when test="select=='all' || select=='id'">
+			id LIKE CONCAT('%',#{keyword},'%') 
+			OR name LIKE CONCAT('%',#{keyword},'%')
+			</when>
+			<when test="select=='all'|| select=='name'">
+			OR name LIKE CONCAT('%',#{keyword},'%')
+			</when>
+		</choose>
+		</where>
+	</select>
+	
+	<!-- 
+	# 반복문 foreach : 동적 쿼리를 구현할 때 컬렉션에 대한 반복 처리 제공
+	-->
+	<delete id="delete" parameterType="ArrayList">
+		DELETE FROM member
+		WHERE id IN 
+		<foreach collection="idList" item="id" open="(" close=")" separator=",">
+			#{id}
+		</foreach>
+	</delete>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 </mapper>

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.kh.mybatis.model.dto.SearchDTO;
 import com.kh.mybatis.model.vo.Member;
 
 @Mapper // 연결 도구 - (member.xml)과 1:1 연결
@@ -17,4 +18,8 @@ public interface MemberMapper {
 	//1:1 매칭 - resultType: Member , id:login, parameterType: Member
 	
 	void update(Member member);
+	
+	List<Member> search(SearchDTO dto);
+	
+	void delete(List<String> idList);
 }

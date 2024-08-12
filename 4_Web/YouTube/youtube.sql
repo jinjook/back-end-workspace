@@ -1,3 +1,10 @@
+DROP TABLE comment;
+DROP TABLE video_like;
+DROP TABLE video;
+DROP TABLE subscribe;
+DROP TABLE channel;
+DROP TABLE member;
+
 -- 회원
 CREATE TABLE member(
 	id VARCHAR(20) PRIMARY KEY,
@@ -21,8 +28,8 @@ CREATE TABLE video(
     video_url VARCHAR(100),
     video_img VARCHAR(100),
     video_title VARCHAR(80),
-    video_count INT,
-    video_date DATE DEFAULT (current_date),
+    video_count INT DEFAULT 0,
+    video_date DATETIME DEFAULT CURRENT_TIMESTAMP, -- 시간까지 확인 가능 DATETIME
     video_desc TEXT, -- 제한없음
     channel_code INT,
     FOREIGN KEY (channel_code) REFERENCES channel(channel_code)
@@ -32,7 +39,7 @@ CREATE TABLE video(
 CREATE TABLE comment(
 	comment_code INT PRIMARY KEY AUTO_INCREMENT,
 	comment_text TEXT,
-    comment_date DATE DEFAULT (current_date),
+    comment_date DATETIME DEFAULT CURRENT_TIMESTAMP, -- 시간까지 확인 가능 DATETIME
     id VARCHAR(20),
     video_code INT,
     parent_code INT,

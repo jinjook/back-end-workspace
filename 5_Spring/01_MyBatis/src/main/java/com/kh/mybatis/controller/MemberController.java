@@ -1,11 +1,15 @@
 package com.kh.mybatis.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.kh.mybatis.model.dto.SearchDTO;
 import com.kh.mybatis.model.vo.Member;
 import com.kh.mybatis.service.MemberService;
 
@@ -64,7 +68,7 @@ public class MemberController {
 		Member m = (Member) session.getAttribute("login");
 		
 		if(vo.getId() == null) vo.setId(m.getId());
-		System.out.println(vo);
+//		System.out.println(vo);
 		service.update(vo);
 		
 		if(vo.getName() == null) vo.setName(m.getName());
@@ -73,6 +77,18 @@ public class MemberController {
 		return "redirect:/";
 	}
 	
+	@GetMapping("/search")
+	public String search(SearchDTO dto, Model model) {
+		
+		model.addAttribute("search", service.search(dto));
+		return "index"; // redirect는 allmember가 보여짐
+	}
 	
+	@PostMapping("/delete") // requestparam = list의 경우, 파라미터로 인식시켜주기
+	public String delete(@RequestParam(name="idList", required=false) List<String> idList) {
+//		System.out.println(idList);
+		if(idList!=null) service.delete(idList);
+		return "redirect:/"; // 새로고침 방식
+	}
 	
 }
