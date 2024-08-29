@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.semi.youtube.model.vo.Paging;
 import com.semi.youtube.model.vo.Subscribe;
 import com.semi.youtube.model.vo.Video;
 import com.semi.youtube.model.vo.VideoLike;
@@ -24,8 +25,9 @@ public class VideoService {
 	@Autowired
 	private SubscribeMapper sub;
 	
-	public List<Video> allVideo(){
-		return video.allVideo();
+	public List<Video> allVideo(Paging paging){
+		paging.setOffset(paging.getLimit() * (paging.getPage() - 1));
+		return video.allVideo(paging);
 	}
 	
 	public Video detail(int videoCode) {
@@ -59,5 +61,5 @@ public class VideoService {
 	public void cancel(int code) {
 		sub.cancel(code);
 	}
-
+		
 }

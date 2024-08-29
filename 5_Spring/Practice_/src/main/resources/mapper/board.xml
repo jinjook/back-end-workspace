@@ -1,0 +1,36 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.BoardMapper">
+
+<!-- 리스트 끌고오기 -->
+<select id="allList" resultType="Board">
+	SELECT *
+	FROM member
+</select>
+
+<!-- 게시글 등록하기 -->
+<insert id="insertBoard" parameterType="Board">
+	INSERT INTO member (title, content)
+	VALUES(#{title}, #{content})
+</insert>
+
+<!-- Board 가져오기 -->
+<select id="selectList" parameterType="int" resultType="Board">
+	SELECT * 
+	FROM member
+	WHERE no=#{no}
+</select>
+
+<!-- 내용 수정하기 -->
+<update id="updateContent" parameterType="Board">
+	UPDATE member
+	SET title=#{title},
+		content=#{content}
+	WHERE no=#{no}
+</update>
+
+<!-- 삭제 기능 -->
+<delete id="deleteContent" parameterType="int">
+	DELETE FROM member
+	WHERE no=#{no}
+</delete>
+</mapper>

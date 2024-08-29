@@ -1,6 +1,8 @@
 package com.semi.youtube.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -17,13 +19,13 @@ public class VideoController {
 	
 	@Autowired
 	private VideoService video;
-	
+
 	// 좋아요
 	@ResponseBody
 	@PostMapping("/like")
-	public void like(HttpServletRequest request, int code) { // builder와 build 사이에 필요한 것 넣기
-		HttpSession session = request.getSession();
-		Member member = (Member) session.getAttribute("vo");
+	public void like(int code) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Member member = (Member) authentication.getPrincipal();
 		
 		VideoLike data = VideoLike.builder()
 				.id(member.getId())
@@ -39,12 +41,16 @@ public class VideoController {
 	public void unlike(int code) {
 		video.unlike(code);
 	}
-		
+	
+	
+	
 	// 댓글 작성
 	
 	// 댓글 수정
 	
 	// 댓글 삭제
+	
+	
 	
 	// 구독
 	

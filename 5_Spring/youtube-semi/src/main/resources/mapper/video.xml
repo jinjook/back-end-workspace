@@ -8,25 +8,26 @@
 		<result column="video_url" property="videoUrl"/>
 		<result column="video_img" property="videoImg"/>
 		<result column="video_title" property="videoTitle"/>
-		<result column="video_count" property="videoCount" />
-		<result column="video_date" property="videoDate" />
+		<result column="video_count" property="videoCount"/>
+		<result column="video_date" property="videoDate"/>
 		<result column="video_desc" property="videoDesc"/>
 		<association property="channel" javaType="Channel">
 		<!-- 채널 클래스와 관계성 -->
 			<id column="channel_code" property="channelCode"/>
-			<result column="channel_img" property="channelImg" />
-			<result column="channel_name" property="channelName" />
+			<result column="channel_img" property="channelImg"/>
+			<result column="channel_name" property="channelName"/>
 			<result column="id" property="id"/>
 		</association>	
 	</resultMap>
 
-	<select id="allVideo" resultMap="videoMap">
-		SELECT * FROM video
-		JOIN channel USING (channel_code);
+	<select id="allVideo" parameterType="Paging" resultMap="videoMap">
+		SELECT * FROM video 
+		JOIN channel USING (channel_code)
+		LIMIT #{offset}, #{limit}
 	</select>
 	
 	<select id="detail" parameterType="Integer" resultMap="videoMap">
-		SELECT * FROM video
+		SELECT * FROM video 
 		JOIN channel USING (channel_code)
 		WHERE video_code = #{videoCode}
 	</select>

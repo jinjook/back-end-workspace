@@ -31,7 +31,7 @@ public class XMLParsing {
 				Node nNode = nList.item(i);
 				if(nNode.getNodeType() == Node.ELEMENT_NODE) {
 					Element eElement = (Element) nNode;
-					System.out.println("MAIN_TITLE : " + getTagValue("MIN_TITLE", eElement));
+					System.out.println("MAIN_TITLE : " + getTagValue("MAIN_TITLE", eElement));
 					System.out.println("ADDR1 : " + getTagValue("ADDR1", eElement).trim()); // trim : 앞 뒤로 공백 제거
 					System.out.println("------------------------------------");
 	
