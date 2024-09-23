@@ -7,8 +7,7 @@
 	</insert>
 	
 	<!-- 페이지 자르기 limit 사용 
-		LIMIT 0,10 -> 0~10번까지 자르기
-	-->
+		 LIMIT 0,10 -> 0~10번까지 자르기 -->
 	<select id="allList" parameterType="Paging" resultType="Board">
 		SELECT * FROM board
 		LIMIT #{offset}, #{limit}
@@ -36,6 +35,5 @@
 		DELETE FROM board
 		WHERE no = #{no} 	
 	</delete>
-	
 	
 </mapper>

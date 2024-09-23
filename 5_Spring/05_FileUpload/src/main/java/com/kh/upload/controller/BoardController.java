@@ -113,15 +113,6 @@ public class BoardController {
 		return "redirect:/view?no="+vo.getNo();
 	
 	}
-	/*
-	@GetMapping("/{no}")
-	public String view(int no, Model model) {
-		Board bo = service.detail(no);
-		System.out.println(bo);
-		model.addAttribute("board", bo);
-		return "view";
-	}
-	*/
 	
 	@GetMapping("/view")
 	public String view(int no, Model model) { // jsp에 값 던지고 싶을 때 model 사용
