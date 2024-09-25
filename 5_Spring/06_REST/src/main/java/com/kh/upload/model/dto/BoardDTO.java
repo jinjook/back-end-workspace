@@ -11,7 +11,8 @@ import lombok.NoArgsConstructor;
 
 @Data @NoArgsConstructor @AllArgsConstructor
 public class BoardDTO {
-	
+
 	private List<Board> list;
 	private Paging paging;
+	
 }

@@ -2,38 +2,39 @@
 <mapper namespace="mapper.BoardMapper">
 	
 	<insert id="insert" parameterType="Board" useGeneratedKeys="true" keyProperty="no" keyColumn="no">
-		INSERT INTO board (title, content, url)
+		INSERT INTO board(title, content, url)
 		VALUES(#{title}, #{content}, #{url})
 	</insert>
 	
-	<!-- 페이지 자르기 limit 사용 
-		 LIMIT 0,10 -> 0~10번까지 자르기 -->
-	<select id="allList" parameterType="Paging" resultType="Board">
+	<select id="selectAll" parameterType="Paging" resultType="Board">
 		SELECT * FROM board
 		LIMIT #{offset}, #{limit}
 	</select>
 	
-	<!-- total 리스트 갯수 구하기 -->
 	<select id="total" resultType="int">
 		SELECT count(*) FROM board
 	</select>
 	
-	<select id="detail" parameterType="Integer" resultType="Board">
+	<select id="select" parameterType="int" resultType="Board">
 		SELECT * FROM board 
-		WHERE no= #{no}
-	</select> 
+		WHERE no = #{no}
+	</select>
 	
 	<update id="update" parameterType="Board">
 		UPDATE board
-		SET	title =#{title},
-			content = #{content},
-			url = #{url}
+		SET title=#{title}, content=#{content}, url=#{url}
 		WHERE no = #{no}
 	</update>
 	
-	<delete id="delete" parameterType="Integer">
+	<delete id="delete" parameterType="int">
 		DELETE FROM board
-		WHERE no = #{no} 	
+		WHERE no = #{no}
 	</delete>
-	
 </mapper>
+
+
+
+
+
+
+

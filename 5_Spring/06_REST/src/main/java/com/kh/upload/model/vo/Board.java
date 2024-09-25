@@ -21,15 +21,12 @@ public class Board {
 	private Date formatDate;
 	
 	private String url;
-	
-	private MultipartFile file; // DTO 따로 만들어서 사용하는게 원칙..
-	
-	
-	public Board (String title, String content, String url) {
-		this.title=title;
-		this.content=content;
-		this.url=url;
-	}
-	
-	
+	private MultipartFile file; // 사실 DTO 따로 만들어서 사용하는 게 원칙!
 }
+
+
+
+
+
+
+
